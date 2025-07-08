@@ -528,7 +528,7 @@ body {
 }
 
 .qrcode-caption {
-    font-family: var(--body-font);
+    font-family: var(--body-font); 
     font-size: 1em;
     color: var(--primary-color);
     margin-top: 0.8rem; /* Espaçamento entre a imagem e a legenda */
@@ -729,6 +729,6 @@ footer {
     }
     .countdown .row {
         margin-left: -0.25rem;
-        margin-right: -0.25rem;
+        margin-right: -0.25rem; /*teste*/
     }
 }
