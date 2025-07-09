@@ -361,6 +361,15 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const targetId = this.getAttribute('href');
+            
+             const validTargetIds = [
+            '#hero', 
+            '#contagem-regressiva', 
+            '#localizacao', 
+            '#galeria', 
+            '#rsvp', 
+            '#presentes'
+        ];
             if (targetId.startsWith('#')) {
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) { 
