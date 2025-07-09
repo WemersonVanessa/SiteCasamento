@@ -44,8 +44,10 @@ body {
 .section {
     padding: 80px 0; /* Ajuste padding vertical */
     text-align: center;
-    position: relative;
+    position: relative; /* Mantido para garantir que o z-index funcione para o conteúdo */
     overflow: hidden; /* Garante que elementos filhos não causem overflow */
+    background-color: #fff; /* Garante que a seção tenha um fundo sólido para cobrir as partículas atrás dela */
+    z-index: 2; /* Garante que as seções fiquem acima do canvas (z-index: -1) */
 }
 
 .section h2 {
@@ -121,7 +123,7 @@ body {
 
 /* Estilo específico para o botão de mapa */
 .map-btn {
-    background-color: var(--primary-color); /* Alterado para Primary Color para consistência */
+    background-color: var(--primary-color);
     color: var(--white-text);
     margin-top: 2rem;
 }
@@ -133,7 +135,7 @@ body {
 
 /* Header - Hero Section */
 .hero {
-    height: 110vh !important;
+    min-height: 100vh; /* Garante que a seção ocupe pelo menos a altura total da viewport */
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fotos/foto13.jpg') no-repeat center center/cover;
     color: var(--white-text);
     display: flex;
@@ -141,23 +143,24 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    position: relative;
+    position: relative; /* Mantido para que o conteúdo do hero possa ter z-index */
     padding: 20px;
-    overflow: hidden;
+    overflow: hidden; /* Importante para que as partículas da imagem de fundo não vazem */
+    z-index: 2; /* Garante que o hero fique acima do canvas */
 }
 
-/* Canvas para as partículas */
+/* Canvas para as partículas **AGORA EM TELA CHEIA E FIXO** */
 #particle-canvas {
-    position: absolute;
+    position: fixed; /* Fixa o canvas na viewport */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
+    width: 100vw; /* 100% da largura da viewport */
+    height: 100vh; /* 100% da altura da viewport */
+    z-index: -1; /* Coloca o canvas COMPLETAMENTE ATRÁS de todo o conteúdo */
+    pointer-events: none; /* Permite que o mouse interaja com o que está por baixo */
 }
 
-/* Nomes dos Noivos (agora fora da caixa) */
+/* Nomes dos Noivos */
 .hero-title {
     font-family: var(--heading-font);
     font-size: 5.5em;
@@ -167,13 +170,13 @@ body {
     letter-spacing: 3px;
     color: var(--white-text);
     word-break: break-word;
-    z-index: 3;
+    z-index: 3; /* Z-index maior que o canvas */
     opacity: 0;
     transform: translateY(50px);
-     margin-top: 9rem
+    margin-top: 9rem;
 }
 
-/* Subtítulo (agora fora da caixa) */
+/* Subtítulo */
 .hero-subtitle {
     font-family: var(--body-font);
     font-size: 2em;
@@ -182,12 +185,12 @@ body {
     letter-spacing: 1.5px;
     color: var(--white-text);
     text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-    z-index: 3;
+    z-index: 3; /* Z-index maior que o canvas */
     opacity: 0;
     transform: translateY(50px);
 }
 
-/* Data e Hora (agora fora da caixa) */
+/* Data e Hora */
 .hero-date {
     font-family: var(--heading-font);
     font-size: 2.8em;
@@ -195,13 +198,13 @@ body {
     font-weight: 700;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
     color: var(--accent-color);
-    z-index: 3;
+    z-index: 3; /* Z-index maior que o canvas */
     opacity: 0;
     transform: translateY(50px);
 }
 
 .hero-content {
-    z-index: 3;
+    z-index: 3; /* Z-index maior que o canvas */
     padding: 2rem 3rem;
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 20px;
@@ -235,20 +238,102 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Container do cronômetro - garante que ele também esteja acima do canvas */
+.countdown-container {
+    position: relative;
+    z-index: 2;
+    margin-top: 2rem;
+}
+
+/* --- AJUSTES PARA A SEÇÃO CONTAGEM REGRESSIVA E MENSAGEM "O GRANDE DIA CHEGOU!" --- */
+#contagem-regressiva {
+    background-color: transparent; /* Permite que as partículas do canvas apareçam por trás */
+}
+
+.countdown {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+.countdown > div[class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.countdown-item {
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semi-transparente para os itens do cronômetro */
+    padding: 1.5rem 1rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: box-shadow 0.4s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 120px;
+    height: 100%;
+}
+
+.countdown-item:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.countdown-item span {
+    font-family: var(--heading-font);
+    font-size: 5em;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.countdown-item p {
+    font-family: var(--body-font);
+    font-size: 1.3em;
+    color: var(--primary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.countdown-finished {
+    font-family: var(--heading-font);
+    font-size: 3.5em;
+    color: var(--accent-color); /* Use uma cor que contraste bem com as partículas */
+    margin-top: 1.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Sombra escura para texto claro */
+}
+
+.firework {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    z-index: 1001;
+    pointer-events: none;
+}
+
 /* Navbar Customizada (Sobrescrevendo Bootstrap) */
 .custom-navbar {
     background-color: var(--primary-color);
     padding: 1.2rem 0;
-    position: fixed; /* MUDANÇA AQUI: fixado na tela */
-    top: 0; /* MUDANÇA AQUI: no topo da tela */
-    width: 100%; /* MUDANÇA AQUI: ocupa toda a largura */
-    z-index: 1000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Z-index alto para a navbar */
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     border-bottom: 3px solid var(--accent-color);
-    /* REMOVIDO: opacity: 0; */
-    /* REMOVIDO: transform: translateY(-50px); */
-    opacity: 1 !important; /* GARANTIA: sempre visível */
-    transform: translateY(0px) !important; /* GARANTIA: sempre na posição */
+    opacity: 1 !important;
+    transform: translateY(0px) !important;
 }
 
 
@@ -309,87 +394,6 @@ body {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28224, 180, 39, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* --- SEÇÃO DA CONTAGEM REGRESSIVA --- */
-.countdown {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-left: -0.75rem;
-    margin-right: -0.75rem;
-}
-
-.countdown > div[class*="col-"] {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-.countdown-item {
-    background-color: var(--white-text);
-    padding: 1.5rem 1rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: box-shadow 0.4s ease;
-    border: 1px solid rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    min-width: 120px;
-    height: 100%;
-}
-
-.countdown-item:hover {
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-
-.countdown-item span {
-    font-family: var(--heading-font);
-    font-size: 5em;
-    color: var(--accent-color);
-    display: block;
-    margin-bottom: 0.5rem;
-    line-height: 1;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.countdown-item p {
-    font-family: var(--body-font);
-    font-size: 1.3em;
-    color: var(--primary-color);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-}
-
-.countdown-finished {
-    font-family: var(--heading-font);
-    font-size: 3.5em;
-    color: var(--primary-color);
-    margin-top: 1.5rem;
-    letter-spacing: 2px;
-}
-
-.firework {
-   position: fixed;
-   width: 5px;
-   height: 5px;
-   background-color: var(--accent-color);
-   border-radius: 50%;
-   z-index: 1001; /* Acima de outros elementos */
-   pointer-events: none;
-}
-
-.spark {
-   position: fixed;
-   width: 8px;
-   height: 8px;
-   border-radius: 50%;
-   opacity: 1;
-   z-index: 1001;
-   pointer-events: none;
-}
 
 /* --- SEÇÃO DE LOCALIZAÇÃO --- */
 .location-address {
@@ -527,8 +531,8 @@ body {
 .qrcode-container {
     position: relative;
     width: 100%;
-    max-width: 300px; /* Limita a largura máxima do QR Code */
-    margin: 3rem auto 2rem auto; /* Centraliza e adiciona margens */
+    max-width: 300px;
+    margin: 3rem auto 2rem auto;
     overflow: hidden;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -536,7 +540,7 @@ body {
     background-color: var(--white-text);
     padding: 10px;
     display: flex;
-    flex-direction: column; /* Para alinhar imagem e legenda */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -549,14 +553,13 @@ body {
 }
 
 .qrcode-caption {
-    font-family: var(--body-font); 
+    font-family: var(--body-font);
     font-size: 1em;
     color: var(--primary-color);
-    margin-top: 0.8rem; /* Espaçamento entre a imagem e a legenda */
+    margin-top: 0.8rem;
     font-weight: 600;
     text-align: center;
 }
-
 
 /* Footer */
 footer {
@@ -567,13 +570,14 @@ footer {
     font-size: 1em;
     box-shadow: 0 -8px 20px rgba(0,0,0,0.2);
     border-top: 3px solid var(--accent-color);
+    z-index: 2; /* Garante que o footer fique acima do canvas */
 }
 
 /* Media Queries Customizados */
 
 @media (max-width: 992px) {
     .hero {
-        height: 85vh;
+        min-height: 85vh;
     }
     .hero-title {
         font-size: 4.5em;
@@ -642,7 +646,7 @@ footer {
 
 @media (max-width: 576px) {
     .hero {
-        height: 85vh;
+        min-height: 85vh;
     }
     .section {
         padding: 40px 0;
@@ -750,6 +754,6 @@ footer {
     }
     .countdown .row {
         margin-left: -0.25rem;
-        margin-right: -0.25rem; 
+        margin-right: -0.25rem;
     }
 }
