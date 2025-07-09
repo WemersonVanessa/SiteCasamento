@@ -134,7 +134,7 @@ body {
 /* Header - Hero Section */
 .hero {
     height: 85vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fotos/pexels-photo-2253870.jpeg') no-repeat center center/cover;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fotos/Imagem do WhatsApp de 2025-07-08 à(s) 17.22.49_47e851f5.jpg') no-repeat center center/cover;
     color: var(--white-text);
     display: flex;
     flex-direction: column;
@@ -729,6 +729,6 @@ footer {
     }
     .countdown .row {
         margin-left: -0.25rem;
-        margin-right: -0.25rem; /*teste*/
+        margin-right: -0.25rem; 
     }
 }
