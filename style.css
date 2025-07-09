@@ -133,7 +133,7 @@ body {
 
 /* Header - Hero Section */
 .hero {
-    height: 85vh;
+    height: 95vh;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fotos/Imagem do WhatsApp de 2025-07-08 à(s) 17.22.49_47e851f5.jpg') no-repeat center center/cover;
     color: var(--white-text);
     display: flex;
