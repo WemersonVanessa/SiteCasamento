@@ -371,6 +371,26 @@ body {
     letter-spacing: 2px;
 }
 
+.firework {
+   position: fixed;
+   width: 5px;
+   height: 5px;
+   background-color: var(--accent-color);
+   border-radius: 50%;
+   z-index: 1001; /* Acima de outros elementos */
+   pointer-events: none;
+}
+
+.spark {
+   position: fixed;
+   width: 8px;
+   height: 8px;
+   border-radius: 50%;
+   opacity: 1;
+   z-index: 1001;
+   pointer-events: none;
+}
+
 /* --- SEÇÃO DE LOCALIZAÇÃO --- */
 .location-address {
     font-family: var(--elegant-font);

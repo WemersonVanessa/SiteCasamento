@@ -87,6 +87,75 @@ document.addEventListener('DOMContentLoaded', () => {
         animateParticles();
     }
 
+    // --- FUNÇÕES DE FOGOS DE ARTIFÍCIO ---
+    function createFirework() {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        document.body.appendChild(firework);
+
+        const startX = Math.random() * window.innerWidth;
+        const startY = window.innerHeight; // Começa da parte inferior da tela
+        const endX = Math.random() * window.innerWidth;
+        const endY = Math.random() * window.innerHeight * 0.3; // Altura onde explode (ex: 30% do topo)
+
+        const colors = ['#ff9f43', '#feca57', '#48dbfb', '#686de0', '#1dd1a1'];
+        const numParticles = 30 + Math.random() * 20;
+
+        // **CORREÇÃO APLICADA AQUI: Usando gsap.fromTo para definir a animação de subida**
+        gsap.fromTo(firework,
+            { // Propriedades INICIAIS (FROM)
+                x: startX,
+                y: startY,
+                opacity: 0.8, // Torna o projétil visível ao iniciar
+                scale: 0.5 // Começa menor
+            },
+            { // Propriedades FINAIS (TO)
+                x: endX,
+                y: endY,
+                opacity: 1, // Torna-se totalmente opaco ao subir
+                scale: 1, // Aumenta o tamanho
+                duration: Math.random() * 0.5 + 0.8,
+                ease: "power2.out",
+                onComplete: () => {
+                    // Cria as partículas da explosão
+                    for (let i = 0; i < numParticles; i++) {
+                        createSpark(endX, endY, colors);
+                    }
+                    firework.remove();
+                }
+            }
+        );
+    }
+
+    function createSpark(x, y, colors) {
+        const spark = document.createElement('div');
+        spark.classList.add('spark');
+        // Define a posição inicial da faísca para onde o fogo de artifício explodiu
+        spark.style.left = `${x}px`;
+        spark.style.top = `${y}px`;
+        document.body.appendChild(spark);
+
+        const color = colors[(Math.random() * colors.length) | 0];
+        spark.style.backgroundColor = color;
+
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 5 + 3;
+        const velocityX = Math.cos(angle) * speed;
+        const velocityY = Math.sin(angle) * speed;
+
+        gsap.to(spark, {
+            x: velocityX * 20, // Multiplicar por um fator para espalhar mais
+            y: velocityY * 20, // Multiplicar por um fator para espalhar mais
+            opacity: 0,
+            duration: Math.random() * 0.8 + 0.5,
+            ease: "power2.out",
+            onComplete: () => {
+                spark.remove();
+            }
+        });
+    }
+    // --- FIM DAS FUNÇÕES DE FOGOS DE ARTIFÍCIO ---
+
 
     // --- ANIMAÇÕES DA SEÇÃO HERO ---
     const heroTitle = document.querySelector('.hero-title');
@@ -167,7 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (countdownElement && countdownSpans.days && countdownSpans.hours && countdownSpans.minutes && countdownSpans.seconds) {
         // Data do evento no fuso horário de Santo Antônio do Descoberto (-03)
-        const targetDate = new Date('2025-09-06T16:30:00-03:00'); 
+        // ATENÇÃO: Para TESTAR os fogos de artifício, mude esta data para alguns segundos no FUTURO!
+        const targetDate = new Date('2025-07-09T12:14:00-03:00'); // Exemplo: 12:05 PM de 9 de julho de 2025
         const countdownDate = targetDate.getTime();
 
         const updateCountdown = () => {
@@ -195,17 +265,48 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (distance < 0) {
-                clearInterval(x);
-                countdownSpans.days.textContent = "00";
-                countdownSpans.hours.textContent = "00";
-                countdownSpans.minutes.textContent = "00";
-                countdownSpans.seconds.textContent = "00";
-                
-                if (countdownFinishedMessage) {
-                    countdownFinishedMessage.classList.remove('d-none'); 
-                    countdownElement.style.display = 'none'; 
-                }
-                return; 
+                clearInterval(x); // 'x' é a variável do setInterval, acessível aqui.
+
+                // Oculta o cronômetro com animação
+                gsap.to(countdownElement, {
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.5,
+                    ease: "power2.in",
+                    display: 'none',
+                    onComplete: () => {
+                        if (countdownFinishedMessage) {
+                            countdownFinishedMessage.classList.remove('d-none');
+                            countdownFinishedMessage.style.opacity = 0;
+                            countdownFinishedMessage.style.transform = 'scale(0.8)';
+
+                            // Anima a mensagem de chegada
+                            gsap.to(countdownFinishedMessage, {
+                                opacity: 1,
+                                scale: 1.2,
+                                duration: 0.8,
+                                ease: "elastic.out(1, 0.5)",
+                                onComplete: () => {
+                                    // Adiciona um brilho sutil pulsante à mensagem
+                                    gsap.to(countdownFinishedMessage, {
+                                        scale: 1,
+                                        duration: 1.5,
+                                        yoyo: true,
+                                        repeat: -1,
+                                        ease: "power1.inOut"
+                                    });
+                                }
+                            });
+
+                            // Adiciona um efeito de fogos de artifício
+                            // Você pode ajustar a quantidade de fogos aqui
+                            for (let i = 0; i < 50; i++) { 
+                                setTimeout(() => createFirework(), i * 200); // Dispara um fogo a cada 200ms
+                            }
+                        }
+                    }
+                });
+                return;
             }
 
             animateAndUpdate(countdownSpans.days, days);
@@ -361,15 +462,15 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const targetId = this.getAttribute('href');
-            
+
              const validTargetIds = [
-            '#hero', 
-            '#contagem-regressiva', 
-            '#localizacao', 
-            '#galeria', 
-            '#rsvp', 
-            '#presentes'
-        ];
+                '#hero', 
+                '#contagem-regressiva', 
+                '#localizacao', 
+                '#galeria', 
+                '#rsvp', 
+                '#presentes'
+            ];
             if (targetId.startsWith('#')) {
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) { 
