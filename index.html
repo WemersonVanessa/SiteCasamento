@@ -4,18 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casamento Vanessa & Wemerson</title>
-
     <link rel="icon" href="fotos/coração.png" type="image/x-icon">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     <link rel="stylesheet" href="style.css">
-
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Open+Sans:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    </head>
+</head>
 <body>
 
     <nav class="navbar navbar-expand-lg custom-navbar" id="main-navbar">
@@ -25,24 +19,13 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#hero">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contagem-regressiva">Cronômetro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#localizacao">Localização</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#galeria">Galeria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#rsvp">Presença</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#presentes">Presentes</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#hero">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contagem-regressiva">Cronômetro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#localizacao">Localização</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#galeria">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#manual-convidado">Dicas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#presentes">Presentes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#rsvp">Presença</a></li>
                 </ul>
             </div>
         </div>
@@ -50,11 +33,9 @@
 
     <header class="hero">
         <canvas id="particle-canvas"></canvas>
-    
         <h1 class="hero-title">Vanessa & Wemerson</h1>
         <p class="hero-subtitle">Nosso Casamento</p>
-        <p class="hero-date">06 de Setembro de 2025 às 16h30</p>
-
+        <p class="hero-date">06 de Setembro de 2025 às 16h</p>
         <div class="hero-content">
             <p class="verse-text-hero">"Por essa razão, o homem deixará pai e mãe e se unirá à sua mulher, e eles se tornarão uma só carne."</p>
             <p class="verse-reference-hero">Gêneses 2:24</p>
@@ -64,44 +45,37 @@
     <section id="contagem-regressiva" class="section">
         <div class="container">
             <h2>Faltam</h2>
-            <div id="countdown" class="countdown row justify-content-center">
-                <div class="countdown-item col-6 col-sm-3 col-md-3 col-lg-2">
-                    <span id="days">00</span>
-                    <p>Dias</p>
+            <div id="countdown" class="countdown row justify-content-center gy-4">
+                <div class="col-6 col-md-3">
+                    <div class="countdown-item"><span id="days">00</span><p>Dias</p></div>
                 </div>
-                <div class="countdown-item col-6 col-sm-3 col-md-3 col-lg-2">
-                    <span id="hours">00</span>
-                    <p>Horas</p>
+                <div class="col-6 col-md-3">
+                    <div class="countdown-item"><span id="hours">00</span><p>Horas</p></div>
                 </div>
-                <div class="countdown-item col-6 col-sm-3 col-md-3 col-lg-2">
-                    <span id="minutes">00</span>
-                    <p>Minutos</p>
+                <div class="col-6 col-md-3">
+                     <div class="countdown-item"><span id="minutes">00</span><p>Minutos</p></div>
                 </div>
-                <div class="countdown-item col-6 col-sm-3 col-md-3 col-lg-2">
-                    <span id="seconds">00</span>
-                    <p>Segundos</p>
+                <div class="col-6 col-md-3">
+                    <div class="countdown-item"><span id="seconds">00</span><p>Segundos</p></div>
                 </div>
             </div>
             <p id="countdown-message" class="countdown-finished d-none">O grande dia chegou!</p>
+            <div class="d-flex justify-content-center mt-5">
+                <button id="addToCalendarBtn" class="btn">
+                    <i class="fas fa-calendar-plus me-2"></i> Adicionar ao Calendário
+                </button>
+            </div>
         </div>
     </section>
 
     <section id="localizacao" class="section">
         <div class="container">
             <h2>Localização</h2>
-            <p class="location-address">Salão de Festas Aquários - Ceilândia, Brasília - DF</p>
+            <p class="section-intro-text">Salão de Festas Aquários - Ceilândia, Brasília - DF</p>
             <div class="map-container">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.656584539392!2d-48.167368599999996!3d-15.769296099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935bc9824a71bbdd%3A0x167e57d52bacba82!2sSal%C3%A3o%20de%20Festas%20Aqu%C3%A1rios!5e0!3m2!1spt-BR!2sbr!4v1752034416472!5m2!1spt-BR!2sbr"
-                    width="600"
-                    height="450"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.656584539392!2d-48.167368599999996!3d-15.769296099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935bc9824a71bbdd%3A0x167e57d52bacba82!2sSal%C3%A3o%20de%20Festas%20Aqu%C3%A1rios!5e0!3m2!1spt-BR!2sbr!4v1752034416472!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <a href="https://maps.app.goo.gl/6jYnDg85viT8kMqB8" target="_blank" class="btn map-btn"><i class="fas fa-map-marked-alt"></i> Abrir no Google Maps</a>
+            <a href="https://maps.app.goo.gl/6jYnDg85viT8kMqB8" target="_blank" class="btn"><i class="fas fa-map-marked-alt"></i> Abrir no Google Maps</a>
         </div>
     </section>
 
@@ -110,66 +84,82 @@
             <h2>Nossa Galeria</h2>
             <div class="carousel-container">
                 <div class="carousel-slide">
-                    <img src="fotos/foto8.jpg" alt="Foto do Casal 1" loading="lazy">
-                    <img src="fotos/foto9.jpg" alt="Foto do Casal 2" loading="lazy">
-                    <img src="fotos/foto2.jpg" alt="Foto do Casal 3" loading="lazy">
-                    <img src="fotos/foto10.jpg" alt="Foto do Casal 4" loading="lazy">
-                    <img src="fotos/foto11.jpg" alt="Foto do Casal 5" loading="lazy">
-                    <img src="fotos/foto6.jpg" alt="Foto Carrossel 6" loading="lazy">
-                    <img src="fotos/foto7.jpg" alt="Foto Carrossel 7" loading="lazy">
-                    <img src="fotos/foto3.jpg" alt="Foto Carrossel 8" loading="lazy">
+                    <img src="fotos/foto6.jpg" alt="Foto do Casal 2" loading="lazy">
+                    <img src="fotos/foto3.jpg" alt="Foto do Casal 3" loading="lazy">
+                    <img src="fotos/foto4.jpg" alt="Foto do Casal 4" loading="lazy">
+                    <img src="fotos/foto5.jpg" alt="Foto Carrossel 6" loading="lazy">
+                    <img src="fotos/foto2.jpg" alt="Foto Carrossel 7" loading="lazy">
+                    <img src="fotos/foto7.jpg" alt="Foto Carrossel 8" loading="lazy">
                     <img src="fotos/foto4.jpg" alt="Foto Carrossel 9" loading="lazy">
                     <img src="fotos/foto5.jpg" alt="Foto Carrossel 10" loading="lazy">
-                    <img src="fotos/foto12.jpg" alt="Foto Carrossel 11" loading="lazy">
                 </div>
                 <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
                 <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
+                <div class="carousel-dots"></div>
             </div>
+        </div>
+    </section>
+
+    <section id="manual-convidado" class="section">
+        <div class="container">
+            <h2 class="section-title">Manual do Bom Convidado</h2>
+            <p class="section-intro-text">Para que o nosso grande dia seja perfeito para todos, preparamos algumas dicas:</p>
+            <div class="manual-list-container">
+                <div class="manual-item"><i class="fas fa-calendar-check manual-icon"></i><div class="manual-text"><h4>Confirmar Presença</h4><p>Sua confirmação é de extrema importância para nosso planejamento.</p></div></div>
+                <div class="manual-item"><i class="fas fa-comment-dots manual-icon"></i><div class="manual-text"><h4>Avise se não Puder Vir</h4><p>Caso haja algum imprevisto, por favor, nos comunique antes.</p></div></div>
+                <div class="manual-item"><i class="fas fa-user-friends manual-icon"></i><div class="manual-text"><h4>Convidado Não Convida</h4><p>Apenas os convidados listados na confirmação devem comparecer.</p></div></div>
+                <div class="manual-item"><i class="fas fa-tshirt manual-icon"></i><div class="manual-text"><h4>Branco: A Cor da Noiva! <span class="color-sample white-sample"></span></h4><p>Pedimos que evitem o uso de trajes na cor <strong>branco</strong> ou tons próximos.</p></div></div>
+                <div class="manual-item"><i class="fas fa-palette manual-icon"></i><div class="manual-text"><h4>Azul Serenity: Madrinhas <span class="color-sample serenity-sample"></span></h4><p>Nossas queridas madrinhas estarão em trajes <strong>Azul Serenity</strong>.</p></div></div>
+                <div class="manual-item"><i class="fas fa-handshake manual-icon"></i><div class="manual-text"><h4>Despeça-se dos Noivos</h4><p>Adoraríamos agradecer sua presença. Não saia sem nos dar um abraço!</p></div></div>
+                <div class="manual-item"><i class="fas fa-hourglass-start manual-icon"></i><div class="manual-text"><h4>Pontualidade</h4><p>A cerimônia terá início pontualmente. Chegue alguns minutos antes.</p></div></div>
+                <div class="manual-item"><i class="fas fa-champagne-glasses manual-icon"></i><div class="manual-text"><h4>Aproveite a Festa!</h4><p>Relaxe, divirta-se e celebre conosco este dia tão aguardado.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="presentes" class="section dark-bg">
+        <div class="container">
+            <h2 class="section-title">Lista de Presentes</h2>
+            <p class="section-intro-text">Deixamos aqui sugestões de presentes que irão nos acompanhar nessa nova fase:</p>
+            <div class="gift-options row justify-content-center">
+                <div class="col-12 col-md-4 mb-3">
+                    <a href="https://www.amazon.com.br/hz/wishlist/ls/TPJA5CBHWP3W?ref_=wl_share" target="_blank" class="btn btn-light w-100">Loja de Presentes</a>
+                </div>
+                <div class="col-12 col-md-4 mb-3 position-relative">
+                    <button type="button" class="btn btn-light w-100" id="copyPixBtn">
+                        <i class="fas fa-money-bill-wave"></i> Pix do Casal
+                    </button>
+                    <div id="copyMessage" class="pix-copy-notification">
+                        <i class="fas fa-check-circle"></i> Pix Copiado!
+                    </div>
+                </div>
+            </div>
+            <input type="text" id="pixCode" value="07748570132" readonly style="position: absolute; left: -9999px;">
+            <div class="qrcode-container">
+                <img src="fotos/qrcode.jpg" alt="QR Code PIX" class="img-fluid">
+            </div>
+            <p class="qrcode-caption">Escaneie para Pix</p>
         </div>
     </section>
 
     <section id="rsvp" class="section">
         <div class="container">
             <h2>Confirme sua Presença</h2>
-            <p class="rsvp-main-text">Sua presença é um presente para nós! Por favor, confirme até o dia 31/07/2025.</p>
-            <div class="spacing-div-before-button"></div>
+            <p class="section-intro-text">Sua presença é um presente para nós!</p>
+            <div class="rsvp-icon-container">
+                <i class="fas fa-envelope-open-text"></i>
+            </div>
             <a href="https://wa.me/556183079291?text=Ol%C3%A1!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20Vanessa%20e%20Wemerson." target="_blank" class="btn">
                 <i class="fab fa-whatsapp"></i> Confirmar Presença
             </a>
             <p class="rsvp-note">Para dúvidas, entre em contato: <br>(61) 99607-9633</p>
         </div>
     </section>
-
-    <section id="presentes" class="section light-bg">
-        <div class="container">
-            <h2>Lista de Presentes</h2>
-            <p class="gift-main-text">Deixamos aqui sugestões de presentes que irão nos acompanhar nessa nova fase com muito amor:</p>
-            <div class="gift-options row justify-content-center">
-                <div class="col-12 col-md-4 mb-3">
-                    <a href="#" target="_blank" class="btn gift-btn w-100">Loja de Presentes 1</a>
-                </div>
-                <div class="col-12 col-md-4 mb-3">
-                    <a href="#" class="btn gift-btn w-100">Loja de Presentes 2</a>
-                </div>
-                <div class="col-12 col-md-4 mb-3">
-                    <a href="#" class="btn gift-btn w-100" onclick="alert('Chave Pix: [07748570132]\nNome do Titular: [WEMERSON RODRIGUES DE ANDRADE]'); return false;">
-                        <i class="fas fa-money-bill-wave"></i> Pix do Casal
-                    </a>
-                </div>
-            </div>
-
-            <div class="qrcode-container">
-                <img src="fotos/qrcode.jpg" alt="QR Code PIX">
-            </div>
-            <p class="qrcode-caption">Escaneie para Pix</p>
-            <div class="spacing-div-after-buttons"></div>
-            <p class="gift-note">Agradecemos imensamente seu carinho!</p>
-        </div>
-    </section>
-
+    
     <footer>
         <div class="container">
-            <p>© 2025 Vanessa & Wemerson. Todos os direitos reservados.</p>
+            <p class="footer-names">Vanessa & Wemerson</p>
+            <p class="copyright-text">© 2025. Todos os direitos reservados.</p>
         </div>
     </footer>
 
