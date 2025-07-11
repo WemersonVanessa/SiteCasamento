@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const countdownFinishedMessage = document.getElementById('countdown-message'); 
 
     if (countdownElement && countdownSpans.days && countdownSpans.hours && countdownSpans.minutes && countdownSpans.seconds) {
-        const targetDate = new Date('2025-07-09T14:40:00-03:00'); // Ajuste para alguns segundos no futuro para teste!
+        const targetDate = new Date('2025-07-20T14:40:00-03:00'); // Ajuste para alguns segundos no futuro para teste!
         const countdownDate = targetDate.getTime();
 
         const updateCountdown = () => {
