@@ -1,81 +1,67 @@
-// script.js (Versão Definitiva e Funcional)
+// script.js (Versão Final com todas as melhorias)
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- LÓGICA DAS PARTÍCULAS ---
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        let canvas = document.getElementById('particle-canvas');
-        if (!canvas) {
-            canvas = document.createElement('canvas');
-            canvas.id = 'particle-canvas';
-            heroSection.prepend(canvas);
+    // --- LÓGICA UNIFICADA DAS PARTÍCULAS ---
+    class Particle {
+        constructor(canvas, ctx) {
+            this.canvas = canvas;
+            this.ctx = ctx;
+            this.x = Math.random() * this.canvas.width;
+            this.y = Math.random() * this.canvas.height;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.6 + 0.2;
         }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > this.canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > this.canvas.height) this.speedY *= -1;
+        }
+        draw() {
+            this.ctx.fillStyle = `rgba(255, 255, 215, ${this.opacity})`;
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
+    }
+
+    function initParticleSystem(containerSelector, canvasId, particleCount) {
+        const section = document.querySelector(containerSelector);
+        if (!section) return;
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const numParticlesBackground = 80;
-        let animationFrameId;
-
-        class Particle {
-            constructor(canvas, ctx) {
-                this.canvas = canvas;
-                this.ctx = ctx;
-                this.x = Math.random() * this.canvas.width;
-                this.y = Math.random() * this.canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.8 + 0.2;
-                this.color = `rgba(255, 255, 200, ${this.opacity})`;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > this.canvas.width) { this.speedX *= -1; }
-                if (this.y < 0 || this.y > this.canvas.height) { this.speedY *= -1; }
-                this.opacity += (Math.random() - 0.5) * 0.02;
-                this.opacity = Math.max(0.2, Math.min(this.opacity, 0.8));
-                this.color = `rgba(255, 255, 200, ${this.opacity})`;
-            }
-            draw() {
-                this.ctx.fillStyle = this.color;
-                this.ctx.shadowColor = this.color;
-                this.ctx.shadowBlur = 2;
-                this.ctx.beginPath();
-                this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                this.ctx.fill();
-            }
-        }
-
-        function setupParticleCanvas() {
-            const { offsetWidth, offsetHeight } = heroSection;
-            canvas.width = offsetWidth;
-            canvas.height = offsetHeight;
+        const setup = () => {
+            canvas.width = section.offsetWidth;
+            canvas.height = section.offsetHeight;
             particles = [];
-            for (let i = 0; i < numParticlesBackground; i++) {
+            for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle(canvas, ctx));
             }
-        }
-
-        function animateParticles() {
+        };
+        const animate = () => {
+            if (!ctx) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            animationFrameId = requestAnimationFrame(animateParticles);
-        }
-        
-        setupParticleCanvas();
-        let resizeTimeout;
-        window.addEventListener('resize', () => { 
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(setupParticleCanvas, 250); 
-        });
-        animateParticles();
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        };
+        setup();
+        animate();
+        window.addEventListener('resize', setup);
     }
+
+    initParticleSystem('.hero', 'particle-canvas', 80);
+    initParticleSystem('footer', 'footer-particle-canvas', 50);
+
 
     // --- ANIMAÇÕES DA SEÇÃO HERO ---
     const customNavbar = document.querySelector('.custom-navbar');
@@ -101,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const distance = countdownDateMs - now;
             if (distance < 0) {
                 clearInterval(countdownInterval);
-                document.getElementById('countdown').style.display = 'none';
+                countdownElement.style.display = 'none';
                 document.getElementById('countdown-message').classList.remove('d-none');
                 return;
             }
@@ -114,54 +100,84 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCountdown();
     }
     
-    // --- LÓGICA DO CARROSSEL COM PONTOS DE NAVEGAÇÃO ---
+    // --- LÓGICA DO CARROSSEL ---
     const carouselContainer = document.querySelector('.carousel-container');
     if (carouselContainer) {
         const slide = carouselContainer.querySelector('.carousel-slide');
         const dotsContainer = carouselContainer.querySelector('.carousel-dots');
-        const images = slide.querySelectorAll('img');
+        const images = [...slide.querySelectorAll('img')];
         const prevBtn = carouselContainer.querySelector('.carousel-btn.prev');
         const nextBtn = carouselContainer.querySelector('.carousel-btn.next');
+        let currentIndex = 0;
 
         if (slide && dotsContainer && images.length > 0) {
-            images.forEach(() => {
+            images.forEach((_, i) => {
                 const dot = document.createElement('div');
                 dot.classList.add('dot');
+                dot.addEventListener('click', () => { goToSlide(i); });
                 dotsContainer.appendChild(dot);
             });
             const dots = dotsContainer.querySelectorAll('.dot');
-            if (dots.length > 0) dots[0].classList.add('active');
             
-            const updateActiveDot = () => {
-                const imageWidth = images[0].getBoundingClientRect().width;
-                const scrollLeft = slide.scrollLeft;
-                const currentIndex = Math.round(scrollLeft / imageWidth);
+            const updateControls = (index) => {
+                currentIndex = index;
                 dots.forEach(dot => dot.classList.remove('active'));
-                if(dots[currentIndex]) {
+                if (dots[currentIndex]) {
                     dots[currentIndex].classList.add('active');
                 }
+                prevBtn.classList.toggle('disabled', currentIndex === 0);
+                nextBtn.classList.toggle('disabled', currentIndex === images.length - 1);
             };
 
-            let scrollTimeout;
-            slide.addEventListener('scroll', () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(updateActiveDot, 50); });
-            
-            const scrollCarousel = (direction) => {
-                const imageWidth = images[0].getBoundingClientRect().width;
-                const newScrollLeft = slide.scrollLeft + (imageWidth * direction);
-                slide.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+            const goToSlide = (index) => {
+                const imageWidth = images[0].offsetWidth;
+                gsap.to(slide, {
+                    duration: 0.8,
+                    scrollTo: { x: imageWidth * index, autoKill: false },
+                    ease: "power2.inOut"
+                });
+                updateControls(index);
             };
-            if(prevBtn) prevBtn.addEventListener('click', () => scrollCarousel(-1));
-            if(nextBtn) nextBtn.addEventListener('click', () => scrollCarousel(1));
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = images.indexOf(entry.target);
+                        updateControls(index);
+                    }
+                });
+            }, { root: slide, threshold: 0.51 });
+
+            images.forEach(img => observer.observe(img));
+
+            if(prevBtn) prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    goToSlide(currentIndex - 1);
+                }
+            });
+
+            if(nextBtn) nextBtn.addEventListener('click', () => {
+                if (currentIndex < images.length - 1) {
+                    goToSlide(currentIndex + 1);
+                }
+            });
+
+            updateControls(0);
         }
     }
 
     // --- ANIMAÇÃO DAS SEÇÕES AO ROLAR ---
     gsap.utils.toArray("section").forEach(section => {
         gsap.from(section, {
-            opacity: 0, y: 50, duration: 1.2, ease: "power3.out",
+            opacity: 0,
+            y: 175,
+            rotationX: -10,
+            transformOrigin: "center bottom",
+            duration: 1.5,
+            ease: "power3.out",
             scrollTrigger: {
                 trigger: section,
-                start: "top 80%",
+                start: "top 85%",
                 toggleActions: "play none none reverse",
             }
         });

@@ -18,6 +18,12 @@
     --elegant-font: 'Merriweather', serif;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: var(--body-font);
     line-height: 1.6;
@@ -45,13 +51,9 @@ body {
 
 .section h2 {
     font-family: var(--heading-font);
-    font-size: 3.8em;
+    font-size: 3.2em;
     color: var(--primary-color);
     margin-bottom: 3rem;
-    position: relative;
-    display: inline-block;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
 }
 
 .section h2::after {
@@ -62,7 +64,6 @@ body {
     background: linear-gradient(to right, var(--accent-color), var(--primary-color));
     margin: 1.5rem auto 0;
     border-radius: 3px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .light-bg {
@@ -97,8 +98,6 @@ body {
     border: 2px solid transparent;
     cursor: pointer;
     text-transform: uppercase;
-    font-family: var(--body-font);
-    font-size: 1em;
 }
 
 .btn i {
@@ -108,8 +107,9 @@ body {
 
 .btn-light {
     background-color: var(--white-text);
-    color: var(--primary-color);
-    border-color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--white-text);
+    border-color: var(--primary-color)
 }
 .btn-light:hover {
     background-color: var(--accent-color);
@@ -128,10 +128,14 @@ body {
     color: var(--white-text);
 }
 
+.section-action-button {
+    margin-top: 3rem;
+}
+
 
 /* --- HEADER / HERO --- */
 .hero {
-    min-height: 100vh;
+    min-height: 85vh;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fotos/foto1.jpg') no-repeat center center/cover;
     color: var(--white-text);
     display: flex;
@@ -141,17 +145,23 @@ body {
     text-align: center;
     position: relative;
     padding: 8rem 20px;
-    z-index: 2;
+    overflow: hidden;
+    z-index: 1;
 }
 
 #particle-canvas {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
     pointer-events: none;
+}
+
+.hero-title, .hero-subtitle, .hero-date, .hero-content {
+    z-index: 3;
+    position: relative;
 }
 
 .hero-title {
@@ -263,7 +273,7 @@ body {
 /* --- CONTAGEM REGRESSIVA --- */
 .countdown-item {
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 1.5rem 1rem;
+    padding: 1rem;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     display: flex;
@@ -351,6 +361,11 @@ body {
     cursor: pointer;
     z-index: 5;
     display: none;
+    transition: opacity 0.3s;
+}
+.carousel-btn.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
 }
 @media (min-width: 769px) {
     .carousel-btn {
@@ -375,11 +390,12 @@ body {
     z-index: 6;
 }
 .carousel-dots .dot {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
     transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
 }
 .carousel-dots .dot.active {
     background-color: var(--accent-color);
@@ -437,7 +453,7 @@ body {
 .white-sample { background-color: #f8f8f8; }
 .serenity-sample { background-color: #9bbbd4; }
 
-/* --- PRESENTES (QR CODE CORRIGIDO) --- */
+/* --- PRESENTES --- */
 .qrcode-container {
     max-width: 250px;
     margin: 2.5rem auto 1rem auto;
@@ -503,9 +519,23 @@ footer {
     background-color: var(--primary-color);
     color: var(--white-text);
     text-align: center;
-    padding: 2.5rem 0;
+    padding: 1.5rem 0;
     border-top: 3px solid var(--accent-color);
     z-index: 2;
+    position: relative;
+    overflow: hidden;
+}
+footer .container {
+    position: relative;
+    z-index: 3;
+}
+#footer-particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 .footer-names {
     font-family: var(--elegant-font);
@@ -523,7 +553,7 @@ footer {
     .hero-subtitle { font-size: 1.8em; }
     .hero-date { font-size: 2.4em; }
     .countdown-item span { font-size: 4em; }
-    .section h2 { font-size: 3em; }
+    .section h2 { font-size: 2.8em; }
     .carousel-slide img { height: 400px; }
 }
 
@@ -536,6 +566,7 @@ footer {
     .section-intro-text { font-size: 1.2em; } 
     .btn { padding: 0.8rem 1.5rem; }
     .manual-list-container { grid-template-columns: 1fr; }
+    .section h2 { font-size: 2.4em; }
 }
 
 @media (max-width: 576px) {
@@ -545,7 +576,7 @@ footer {
     .countdown-item span { font-size: 2.5em; }
     .countdown-item p { font-size: 0.8em; }
     .carousel-slide img { height: 250px; }
-    .section h2 { font-size: 2.5em; }
+    .section h2 { font-size: 2.0em; }
     .navbar-nav .nav-item { margin: 0.5rem 0; }
     .qrcode-container { max-width: 200px; }
 }

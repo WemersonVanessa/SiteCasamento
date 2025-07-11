@@ -60,7 +60,7 @@
                 </div>
             </div>
             <p id="countdown-message" class="countdown-finished d-none">O grande dia chegou!</p>
-            <div class="d-flex justify-content-center mt-5">
+            <div class="section-action-button">
                 <button id="addToCalendarBtn" class="btn">
                     <i class="fas fa-calendar-plus me-2"></i> Adicionar ao Calendário
                 </button>
@@ -75,7 +75,9 @@
             <div class="map-container">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.656584539392!2d-48.167368599999996!3d-15.769296099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935bc9824a71bbdd%3A0x167e57d52bacba82!2sSal%C3%A3o%20de%20Festas%20Aqu%C3%A1rios!5e0!3m2!1spt-BR!2sbr!4v1752034416472!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <a href="https://maps.app.goo.gl/6jYnDg85viT8kMqB8" target="_blank" class="btn"><i class="fas fa-map-marked-alt"></i> Abrir no Google Maps</a>
+             <div class="section-action-button">
+                <a href="https://maps.app.goo.gl/6jYnDg85viT8kMqB8" target="_blank" class="btn"><i class="fas fa-map-marked-alt"></i> Abrir no Google Maps</a>
+            </div>
         </div>
     </section>
 
@@ -84,14 +86,12 @@
             <h2>Nossa Galeria</h2>
             <div class="carousel-container">
                 <div class="carousel-slide">
-                    <img src="fotos/foto6.jpg" alt="Foto do Casal 2" loading="lazy">
-                    <img src="fotos/foto3.jpg" alt="Foto do Casal 3" loading="lazy">
-                    <img src="fotos/foto4.jpg" alt="Foto do Casal 4" loading="lazy">
-                    <img src="fotos/foto5.jpg" alt="Foto Carrossel 6" loading="lazy">
+                    <img src="fotos/foto6.jpg" alt="Foto do Casal 1" loading="lazy">
+                    <img src="fotos/foto7.jpg" alt="Foto do Casal 2" loading="lazy">
+                    <img src="fotos/foto5.jpg" alt="Foto do Casal 3" loading="lazy">
+                    <img src="fotos/foto3.jpg" alt="Foto do Casal 4" loading="lazy">
+                    <img src="fotos/foto4.jpg" alt="Foto Carrossel 6" loading="lazy">
                     <img src="fotos/foto2.jpg" alt="Foto Carrossel 7" loading="lazy">
-                    <img src="fotos/foto7.jpg" alt="Foto Carrossel 8" loading="lazy">
-                    <img src="fotos/foto4.jpg" alt="Foto Carrossel 9" loading="lazy">
-                    <img src="fotos/foto5.jpg" alt="Foto Carrossel 10" loading="lazy">
                 </div>
                 <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
                 <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
@@ -123,7 +123,7 @@
             <p class="section-intro-text">Deixamos aqui sugestões de presentes que irão nos acompanhar nessa nova fase:</p>
             <div class="gift-options row justify-content-center">
                 <div class="col-12 col-md-4 mb-3">
-                    <a href="https://www.amazon.com.br/hz/wishlist/ls/TPJA5CBHWP3W?ref_=wl_share" target="_blank" class="btn btn-light w-100">Loja de Presentes</a>
+                    <a href="#" target="_blank" class="btn btn-light w-100">Loja de Presentes</a>
                 </div>
                 <div class="col-12 col-md-4 mb-3 position-relative">
                     <button type="button" class="btn btn-light w-100" id="copyPixBtn">
@@ -149,14 +149,17 @@
             <div class="rsvp-icon-container">
                 <i class="fas fa-envelope-open-text"></i>
             </div>
-            <a href="https://wa.me/556183079291?text=Ol%C3%A1!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20Vanessa%20e%20Wemerson." target="_blank" class="btn">
-                <i class="fab fa-whatsapp"></i> Confirmar Presença
-            </a>
+             <div class="section-action-button">
+                <a href="https://wa.me/556183079291?text=Ol%C3%A1!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20Vanessa%20e%20Wemerson." target="_blank" class="btn">
+                    <i class="fab fa-whatsapp"></i> Confirmar Presença
+                </a>
+            </div>
             <p class="rsvp-note">Para dúvidas, entre em contato: <br>(61) 99607-9633</p>
         </div>
     </section>
     
     <footer>
+        <canvas id="footer-particle-canvas"></canvas>
         <div class="container">
             <p class="footer-names">Vanessa & Wemerson</p>
             <p class="copyright-text">© 2025. Todos os direitos reservados.</p>
