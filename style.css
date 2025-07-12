@@ -112,7 +112,7 @@ body {
     border-color: var(--primary-color)
 }
 .btn-light:hover {
-    background-color: var(--accent-color);
+    background-color: var(--white-text);
     color: var(--primary-color);
 }
 
@@ -130,6 +130,11 @@ body {
 
 .section-action-button {
     margin-top: 3rem;
+}
+
+.btn:hover {
+    background-color: var(--accent-color); /* Fundo Dourado */
+    color: var(--primary-color);         /* Texto Azul Marinho */
 }
 
 
@@ -212,7 +217,6 @@ body {
     font-weight: 300;
 }
 
-/* --- NAVBAR --- */
 .custom-navbar {
     background-color: var(--primary-color);
     padding: 1rem 0;
@@ -222,6 +226,26 @@ body {
     z-index: 1000;
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     border-bottom: 3px solid var(--accent-color);
+}
+
+.custom-navbar .container {
+    display: flex;
+    justify-content: space-between; /* Empurra os itens para as pontas */
+    align-items: center;
+    width: 100%;
+}
+
+@media(min-width: 992px) {
+    .custom-navbar .collapse {
+        justify-content: center !important; /* Força a centralização só no desktop */
+    }
+}
+
+/* REGRA ADICIONADA para estilizar as iniciais */
+.navbar-initials {
+    font-family: var(--heading-font);
+    font-size: 1.6em;
+    color: var(--accent-color);
 }
 
 .custom-navbar .navbar-nav .nav-link {
