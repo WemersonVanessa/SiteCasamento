@@ -203,6 +203,7 @@ body {
     max-width: 900px;
     width: 90%;
     margin: 0 auto;
+    margin-top: auto;
 }
 
 .verse-text-hero {
@@ -210,6 +211,15 @@ body {
     font-size: 1.1em;
     font-style: italic;
     margin-bottom: 0.5rem;
+}
+
+@media (max-width: 576px) { /* ou @media (max-width: 768px) { se preferir um breakpoint maior */
+    .hero-content .verse-text-hero {
+        font-size: 0.9em; /* Ajuste este valor para o tamanho desejado */
+    }
+    .hero-content .verse-reference-hero {
+        font-size: 0.75em; /* Opcional: Diminuir também a referência */
+    }
 }
 
 .verse-reference-hero {
